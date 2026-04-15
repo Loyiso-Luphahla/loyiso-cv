@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Loyiso Luphahla — Curriculum Vitae</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --cyan:#00d4ff;--blue:#0080ff;--red:#ff2244;
+    --white:#e8f4ff;--bg:#020608;
+    --panel:rgba(0,20,35,0.85);
+    --glow:0 0 20px rgba(0,212,255,0.4),0 0 40px rgba(0,128,255,0.2);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--white);
+    font-family:'Rajdhani',sans-serif;
+    min-height:100vh;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);
+    background-size:50px 50px;
+  }
+
+  /* PRINT */
+  @media print{
+    body{background:#fff;color:#000;background-image:none}
+    .no-print{display:none}
+    .cv-wrap{max-width:100%;padding:0}
+    .panel{background:#f8f8f8;border-color:#ddd}
+    .label,.section-tag,.skill-tag{color:#555}
+    .value,.section-title,.skill-name{color:#000}
+    h1{color:#000}
+    .accent{color:#0066cc}
+    .bar-fill{background:#0066cc}
+    .tag{background:#eee;color:#333;border-color:#ccc}
+    footer{display:none}
+  }
+
+  .cv-wrap{max-width:900px;margin:0 auto;padding:2rem 1.5rem 4rem}
+
+  /* TOP BAR */
+  .top-bar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:.75rem 1.5rem;
+    background:rgba(2,6,8,0.95);
+    border-bottom:1px solid rgba(0,212,255,0.15);
+    position:sticky;top:0;z-index:100;
+    backdrop-filter:blur(20px);
+    margin-bottom:2rem;
+  }
+  .top-bar-logo{font-family:'Orbitron',sans-serif;font-size:.85rem;font-weight:900;color:var(--cyan);letter-spacing:.2em;text-shadow:var(--glow)}
+  .top-bar-right{display:flex;gap:.75rem;align-items:center}
+  .print-btn{
+    font-family:'Orbitron',sans-serif;font-size:.6rem;font-weight:600;
+    letter-spacing:.1em;padding:.5rem 1.2rem;
+    background:linear-gradient(135deg,rgba(0,212,255,0.15),rgba(0,128,255,0.1));
+    border:1px solid rgba(0,212,255,0.4);color:var(--cyan);
+    cursor:pointer;transition:all .3s;
+    clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
+    display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;
+  }
+  .print-btn:hover{background:rgba(0,212,255,0.25);box-shadow:var(--glow)}
+  .back-btn{
+    font-family:'Orbitron',sans-serif;font-size:.6rem;font-weight:600;
+    letter-spacing:.1em;padding:.5rem 1.2rem;
+    background:transparent;border:1px solid rgba(255,34,68,0.4);color:var(--red);
+    cursor:pointer;transition:all .3s;text-decoration:none;
+    clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
+    display:inline-flex;align-items:center;gap:.4rem;
+  }
+  .back-btn:hover{background:rgba(255,34,68,0.1);box-shadow:0 0 20px rgba(255,34,68,0.3)}
+
+  /* HEADER */
+  .cv-header{
+    background:var(--panel);
+    border:1px solid rgba(0,212,255,0.15);
+    padding:2.5rem;margin-bottom:2rem;
+    clip-path:polygon(0 0,calc(100% - 24px) 0,100% 24px,100% 100%,0 100%);
+    position:relative;overflow:hidden;
+  }
+  .cv-header::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--cyan),var(--blue),transparent);
+  }
+  .cv-header-inner{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:start}
+  .cv-name{
+    font-family:'Orbitron',sans-serif;font-weight:900;
+    font-size:clamp(1.8rem,5vw,3rem);
+    background:linear-gradient(135deg,var(--white),var(--cyan),var(--blue));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    filter:drop-shadow(0 0 20px rgba(0,212,255,0.4));
+    letter-spacing:.05em;line-height:1;
+  }
+  .cv-role{
+    font-family:'Share Tech Mono',monospace;font-size:.85rem;
+    color:var(--red);letter-spacing:.25em;margin-top:.5rem;margin-bottom:.75rem;
+  }
+  .cv-tagline{
+    font-size:1rem;color:rgba(232,244,255,0.65);
+    font-weight:300;line-height:1.6;max-width:500px;
+  }
+  .cv-contact-block{display:flex;flex-direction:column;gap:.5rem;align-items:flex-end;min-width:200px}
+  .cv-contact-item{
+    font-family:'Share Tech Mono',monospace;font-size:.7rem;
+    color:rgba(0,212,255,0.7);text-align:right;
+    display:flex;align-items:center;gap:.5rem;justify-content:flex-end;
+  }
+  .cv-contact-item a{color:inherit;text-decoration:none}
+  .cv-contact-item a:hover{color:var(--cyan)}
+  .cv-contact-dot{width:4px;height:4px;background:var(--red);border-radius:50%;flex-shrink:0}
+
+  /* GRID LAYOUT */
+  .cv-grid{display:grid;grid-template-columns:1fr 320px;gap:1.5rem;align-items:start}
+
+  /* PANELS */
+  .panel{
+    background:var(--panel);
+    border:1px solid rgba(0,212,255,0.1);
+    padding:1.75rem;margin-bottom:1.5rem;
+    clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%);
+    position:relative;
+  }
+  .panel::before{
+    content:'';position:absolute;top:0;left:0;width:3px;height:100%;
+    background:linear-gradient(to bottom,var(--cyan),transparent);
+  }
+
+  /* SECTION TITLES */
+  .section-tag{
+    font-family:'Share Tech Mono',monospace;font-size:.65rem;
+    color:var(--red);letter-spacing:.3em;display:block;margin-bottom:.3rem;
+  }
+  .section-title{
+    font-family:'Orbitron',sans-serif;font-weight:700;font-size:1rem;
+    color:var(--white);letter-spacing:.1em;margin-bottom:1.25rem;
+    padding-bottom:.75rem;border-bottom:1px solid rgba(0,212,255,0.1);
+  }
+  .accent{color:var(--cyan)}
+
+  /* EXPERIENCE / EDUCATION ITEMS */
+  .entry{margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(0,212,255,0.07)}
+  .entry:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+  .entry-header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.4rem;flex-wrap:wrap}
+  .entry-title{font-family:'Orbitron',sans-serif;font-size:.85rem;font-weight:700;color:var(--white);letter-spacing:.05em}
+  .entry-date{
+    font-family:'Share Tech Mono',monospace;font-size:.65rem;
+    color:var(--cyan);white-space:nowrap;
+    background:rgba(0,212,255,0.08);padding:.2rem .6rem;
+    border:1px solid rgba(0,212,255,0.15);
+  }
+  .entry-org{font-family:'Rajdhani',sans-serif;font-size:.85rem;color:var(--red);font-weight:600;margin-bottom:.5rem;letter-spacing:.05em}
+  .entry-desc{font-size:.9rem;color:rgba(232,244,255,0.65);line-height:1.7}
+  .entry-desc li{margin-left:1rem;margin-bottom:.25rem}
+  .entry-desc li::marker{color:var(--cyan)}
+
+  /* SKILLS */
+  .skill-row{margin-bottom:1rem}
+  .skill-row:last-child{margin-bottom:0}
+  .skill-top{display:flex;justify-content:space-between;margin-bottom:.35rem}
+  .skill-name{font-family:'Rajdhani',sans-serif;font-size:.9rem;font-weight:600;color:var(--white)}
+  .skill-tag{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--cyan)}
+  .bar-track{height:3px;background:rgba(0,212,255,0.1);border-radius:2px;overflow:hidden}
+  .bar-fill{
+    height:100%;border-radius:2px;
+    background:linear-gradient(90deg,var(--blue),var(--cyan));
+    box-shadow:0 0 6px var(--cyan);
+    transition:width 1.5s ease;
+  }
+
+  /* TAGS */
+  .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.75rem}
+  .tag{
+    font-family:'Share Tech Mono',monospace;font-size:.6rem;
+    padding:.2rem .6rem;border:1px solid rgba(0,212,255,0.2);
+    color:rgba(0,212,255,0.7);
+    clip-path:polygon(4px 0,100% 0,calc(100% - 4px) 100%,0 100%);
+  }
+  .tag.red{border-color:rgba(255,34,68,0.25);color:rgba(255,34,68,0.7)}
+
+  /* INFO ITEMS */
+  .info-item{
+    display:flex;justify-content:space-between;
+    padding:.6rem 0;border-bottom:1px solid rgba(0,212,255,0.07);
+    font-size:.85rem;
+  }
+  .info-item:last-child{border-bottom:none}
+  .label{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:rgba(0,212,255,0.5);letter-spacing:.1em}
+  .value{font-weight:600;color:var(--white)}
+
+  /* STAT BOXES */
+  .stat-boxes{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.5rem}
+  .stat-box{
+    background:rgba(0,212,255,0.04);
+    border:1px solid rgba(0,212,255,0.12);
+    padding:1rem;text-align:center;
+    clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%);
+  }
+  .stat-num{font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:900;color:var(--cyan);text-shadow:var(--glow)}
+  .stat-label{font-family:'Share Tech Mono',monospace;font-size:.55rem;color:rgba(0,212,255,0.5);letter-spacing:.1em;margin-top:.2rem}
+
+  /* SCAN LINE DECORATION */
+  .scan-deco{
+    height:1px;background:linear-gradient(90deg,transparent,rgba(0,212,255,0.3),transparent);
+    margin:1.5rem 0;
+  }
+
+  /* FOOTER */
+  .cv-footer{
+    text-align:center;margin-top:3rem;
+    font-family:'Share Tech Mono',monospace;font-size:.65rem;
+    color:rgba(0,212,255,0.25);letter-spacing:.2em;
+  }
+
+  /* RESPONSIVE */
+  @media(max-width:768px){
+    .cv-grid{grid-template-columns:1fr}
+    .cv-header-inner{grid-template-columns:1fr}
+    .cv-contact-block{align-items:flex-start}
+    .cv-contact-item{justify-content:flex-start}
+    .top-bar{flex-wrap:wrap;gap:.5rem}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar no-print">
+  <div class="top-bar-logo">LOYISO.LUPHAHLA — CV v<span id="cvYear"></span></div>
+  <div class="top-bar-right">
+    <a href="https://loyiso.vercel.app" class="back-btn">← BACK</a>
+    <button class="print-btn" onclick="window.print()">
+      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg>
+      PRINT / SAVE PDF
+    </button>
+  </div>
+</div>
+
+<div class="cv-wrap">
+
+  <!-- HEADER -->
+  <div class="cv-header">
+    <div class="cv-header-inner">
+      <div>
+        <div class="cv-name">LOYISO<br>LUPHAHLA</div>
+        <div class="cv-role">// SOFTWARE ENGINEER · WEB DEVELOPER · PYTHON PROGRAMMER</div>
+        <div class="cv-tagline">Passionate engineer from Zimbabwe building next-generation digital systems. Specialising in web development, Python programming, AI concepts, and cybersecurity — driven by precision and a relentless pursuit of excellence.</div>
+        <div class="tags" style="margin-top:1rem">
+          <span class="tag">HTML/CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Python</span>
+          <span class="tag">React</span>
+          <span class="tag">UI/UX</span>
+          <span class="tag">APIs</span>
+          <span class="tag red">Cybersecurity</span>
+          <span class="tag red">AI Concepts</span>
+        </div>
+      </div>
+      <div class="cv-contact-block">
+        <div class="cv-contact-item"><div class="cv-contact-dot"></div>Zimbabwe, ZW</div>
+        <div class="cv-contact-item"><div class="cv-contact-dot"></div><a href="mailto:loyiso@luphahla.dev">loyiso@luphahla.dev</a></div>
+        <div class="cv-contact-item"><div class="cv-contact-dot"></div><a href="https://github.com/Loyiso-Luphahla" target="_blank">github.com/Loyiso-Luphahla</a></div>
+        <div class="cv-contact-item" style="margin-top:.5rem;color:rgba(0,212,255,0.4);font-size:.6rem">UPDATED: <span id="cvYearContact"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAT BOXES -->
+  <div class="stat-boxes">
+    <div class="stat-box"><div class="stat-num">7+</div><div class="stat-label">PROJECTS DEPLOYED</div></div>
+    <div class="stat-box"><div class="stat-num">13</div><div class="stat-label">SKILLS ACQUIRED</div></div>
+    <div class="stat-box"><div class="stat-num">4+</div><div class="stat-label">YEARS CODING</div></div>
+    <div class="stat-box"><div class="stat-num">∞</div><div class="stat-label">AMBITION LEVEL</div></div>
+  </div>
+
+  <!-- TWO COLUMN -->
+  <div class="cv-grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="cv-left">
+
+      <!-- ABOUT -->
+      <div class="panel">
+        <span class="section-tag">// PROFILE_SUMMARY</span>
+        <div class="section-title">ABOUT <span class="accent">ME</span></div>
+        <p style="font-size:.95rem;color:rgba(232,244,255,0.7);line-height:1.8">
+          I am a self-driven software engineer and web developer from Zimbabwe with a deep passion for building elegant, performant digital solutions. My work spans front-end web development, Python scripting, and full-stack application architecture.
+        </p>
+        <p style="font-size:.95rem;color:rgba(232,244,255,0.7);line-height:1.8;margin-top:.75rem">
+          I am actively expanding into AI systems and cybersecurity, with a vision to engineer intelligent, secure, and world-class software that solves real problems. I believe great software is built at the intersection of logic, creativity, and relentless iteration.
+        </p>
+      </div>
+
+      <!-- EXPERIENCE / PROJECTS -->
+      <div class="panel">
+        <span class="section-tag">// MISSION_ARCHIVE</span>
+        <div class="section-title">PROJECTS & <span class="accent">EXPERIENCE</span></div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <div class="entry-title">AI Website Builder</div>
+            <div class="entry-date">2024 — PRESENT</div>
+          </div>
+          <div class="entry-org">Personal Project · AI / React / NLP</div>
+          <div class="entry-desc">
+            <ul>
+              <li>Intelligent platform generating full websites from natural language using AI</li>
+              <li>Auto-generates responsive layouts, code, and content from user prompts</li>
+              <li>Built with React front-end and AI API integration</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <div class="entry-title">Student Management System</div>
+            <div class="entry-date">2024</div>
+          </div>
+          <div class="entry-org">Full-Stack Project · React · Node.js · Database</div>
+          <div class="entry-desc">
+            <ul>
+              <li>Full-stack system for managing student records, grades, and attendance</li>
+              <li>Real-time data visualization and performance analytics dashboard</li>
+              <li>RESTful API design with secure database integration</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <div class="entry-title">Authentication Login System</div>
+            <div class="entry-date">2023</div>
+          </div>
+          <div class="entry-org">Security Project · JWT · OAuth2 · API</div>
+          <div class="entry-desc">
+            <ul>
+              <li>Secure multi-factor authentication with JWT token management</li>
+              <li>OAuth2 integration and advanced session handling</li>
+              <li>Security-first architecture with biometric hook support</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <div class="entry-title">Hacker Dashboard & Matrix Terminal UI</div>
+            <div class="entry-date">2023</div>
+          </div>
+          <div class="entry-org">Creative Dev · Canvas · JavaScript · CSS</div>
+          <div class="entry-desc">
+            <ul>
+              <li>Cybersecurity-themed terminal dashboard with live network visualisation</li>
+              <li>Immersive matrix-rain canvas interface with functional command execution</li>
+              <li>Advanced CSS animations and canvas particle systems</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <div class="entry-title">Portfolio Website (This Site)</div>
+            <div class="entry-date">2026</div>
+          </div>
+          <div class="entry-org">Personal Brand · HTML · CSS · JS</div>
+          <div class="entry-desc">
+            <ul>
+              <li>LUPHAHLA-system inspired holographic portfolio interface</li>
+              <li>Custom canvas particle engine, HUD animations, boot sequence</li>
+              <li>Fully responsive across all devices and screen sizes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- EDUCATION -->
+      <div class="panel">
+        <span class="section-tag">// KNOWLEDGE_BASE</span>
+        <div class="section-title">EDUCATION & <span class="accent">TRAINING</span></div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <div class="entry-title">Software Engineering & Web Development</div>
+            <div class="entry-date">2020 — PRESENT</div>
+          </div>
+          <div class="entry-org">Self-Directed Learning · Online Platforms</div>
+          <div class="entry-desc">Continuous self-driven learning across HTML, CSS, JavaScript, Python, React, APIs, databases, cybersecurity principles, and AI concepts through structured online courses and hands-on project development.</div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <div class="entry-title">Python Programming</div>
+            <div class="entry-date">2022 — PRESENT</div>
+          </div>
+          <div class="entry-org">Programming · Scripting · Automation</div>
+          <div class="entry-desc">Deep study of Python covering scripting, automation, data structures, OOP principles, and backend development concepts. Applied in real projects and AI-adjacent tooling.</div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <div class="entry-title">Cybersecurity Fundamentals</div>
+            <div class="entry-date">2023 — PRESENT</div>
+          </div>
+          <div class="entry-org">Security Studies · Zimbabwe</div>
+          <div class="entry-desc">Studying core cybersecurity concepts including network security, ethical hacking principles, secure coding practices, and digital defense strategies.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="cv-right">
+
+      <!-- PERSONAL INFO -->
+      <div class="panel">
+        <span class="section-tag">// IDENTITY_DATA</span>
+        <div class="section-title">PERSONAL <span class="accent">INFO</span></div>
+        <div class="info-item"><span class="label">NATIONALITY</span><span class="value">Zimbabwean</span></div>
+        <div class="info-item"><span class="label">LOCATION</span><span class="value">Zimbabwe, ZW</span></div>
+        <div class="info-item"><span class="label">TIMEZONE</span><span class="value">UTC+2 (CAT)</span></div>
+        <div class="info-item"><span class="label">AVAILABILITY</span><span class="value" style="color:#00ff88">OPEN TO WORK</span></div>
+        <div class="info-item"><span class="label">LANGUAGES</span><span class="value">English</span></div>
+        <div class="info-item"><span class="label">GITHUB</span><span class="value" style="font-size:.75rem"><a href="https://github.com/Loyiso-Luphahla" target="_blank" style="color:var(--cyan);text-decoration:none">Loyiso-Luphahla</a></span></div>
+      </div>
+
+      <!-- TECHNICAL SKILLS -->
+      <div class="panel">
+        <span class="section-tag">// CAPABILITY_MATRIX</span>
+        <div class="section-title">TECHNICAL <span class="accent">SKILLS</span></div>
+
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">HTML</span><span class="skill-tag">92%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:92%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">CSS</span><span class="skill-tag">90%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">JavaScript</span><span class="skill-tag">85%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">Python</span><span class="skill-tag">80%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">React</span><span class="skill-tag">78%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:78%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">UI/UX Design</span><span class="skill-tag">82%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:82%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">APIs</span><span class="skill-tag">80%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">Databases</span><span class="skill-tag">72%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:72%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">Cybersecurity</span><span class="skill-tag">65%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:65%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">AI Concepts</span><span class="skill-tag">70%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:70%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">Problem Solving</span><span class="skill-tag">93%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:93%"></div></div>
+        </div>
+      </div>
+
+      <!-- TOOLS -->
+      <div class="panel">
+        <span class="section-tag">// TOOLS_ARSENAL</span>
+        <div class="section-title">TOOLS & <span class="accent">TECH</span></div>
+        <div class="tags">
+          <span class="tag">VS Code</span>
+          <span class="tag">Git</span>
+          <span class="tag">GitHub</span>
+          <span class="tag">Chrome DevTools</span>
+          <span class="tag">Figma</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">npm</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">Canvas API</span>
+          <span class="tag red">Linux</span>
+          <span class="tag red">Terminal</span>
+        </div>
+      </div>
+
+      <!-- STRENGTHS -->
+      <div class="panel">
+        <span class="section-tag">// CORE_ATTRIBUTES</span>
+        <div class="section-title">CORE <span class="accent">STRENGTHS</span></div>
+        <div class="info-item"><span class="label">MINDSET</span><span class="value">Growth-oriented</span></div>
+        <div class="info-item"><span class="label">APPROACH</span><span class="value">Detail-obsessed</span></div>
+        <div class="info-item"><span class="label">STYLE</span><span class="value">Self-directed</span></div>
+        <div class="info-item"><span class="label">FOCUS</span><span class="value">Quality first</span></div>
+        <div class="info-item"><span class="label">DRIVE</span><span class="value">Relentless builder</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="scan-deco"></div>
+  <div class="cv-footer">
+    // LOYISO LUPHAHLA — CV · LUPHAHLA INTELLIGENCE SYSTEMS · ZIMBABWE · <span id="cvYearFooter"></span>
+  </div>
+
+</div>
+
+<script>
+  const y = new Date().getFullYear();
+  document.getElementById('cvYear').textContent = y;
+  document.getElementById('cvYearContact').textContent = y;
+  document.getElementById('cvYearFooter').textContent = y;
+</script>
+</body>
+</html>
